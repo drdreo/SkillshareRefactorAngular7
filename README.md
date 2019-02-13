@@ -1,4 +1,5 @@
 # Refactor an Angular 7 App: Improving Code Design
+This repo is the related project for the class available here: [class](shillshare.com)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.1.
 It's purpose is to demonstrate the refactoring of an Angular 7 app using design patterns.
