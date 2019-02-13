@@ -17,7 +17,7 @@ export class GameComponent {
 
   constructor() {
     this.turnPhase = TurnPhase.Recruit;
-    this.countries = JSON.parse(JSON.stringify(worldCountries)); // create a real copy of the data
+    this.countries = JSON.parse(JSON.stringify(worldCountries)); // create a real copy of the data, else it would mutate the original data
   }
 
   onTurnPhaseChange(turnPhase: TurnPhase) {
@@ -46,7 +46,6 @@ export class GameComponent {
   }
 
   private handleTurnAttack(countryName: string) {
-
     // unset if clicked on the same country
     if (this.originCountryName === countryName) {
       this.resetCountrySelection();
@@ -78,7 +77,7 @@ export class GameComponent {
         this.changeCountryTroops(defender, defender.troops + defenderChangedTroops);
 
       } else {
-        console.warn('The attacker country has to less troops, so ain\'t possible to attack!');
+        console.warn('The attacker country has too less troops, so ain\'t possible to attack!');
       }
 
       // reset the selection after the turn is done
@@ -87,7 +86,6 @@ export class GameComponent {
   }
 
   private handleTurnManeuver(countryName: string) {
-
     // unset if clicked on the same country
     if (this.originCountryName === countryName) {
       this.resetCountrySelection();
@@ -106,7 +104,7 @@ export class GameComponent {
         this.changeCountryTroops(target, target.troops + 3);
 
       } else {
-        console.warn('The origin country has to less troops, it is not possible to maneuver!');
+        console.warn('The origin country has too less troops, it is not possible to maneuver!');
       }
 
       // reset the selection after the turn is done
@@ -116,6 +114,7 @@ export class GameComponent {
 
   private changeCountryTroops(country: Country, troops: number) {
     country.troops = troops;
+    this.countries = [...this.countries]; // trigger angular change detection through assigning a new array, due to no deep array comparison
   }
 
 

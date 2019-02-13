@@ -32,6 +32,10 @@ export class MapComponent implements AfterViewInit, OnChanges {
     });
   }
 
+  handleMapClick(target: SVGGraphicsElement) {
+    this.selectCountry(target.id);
+  }
+
   selectCountry(country: string) {
     this.highlightCountry(country);
     this.selectedCountry.emit(country);
@@ -40,10 +44,6 @@ export class MapComponent implements AfterViewInit, OnChanges {
   highlightCountry(country: string) {
     this.clearHighlights();
     document.querySelector('#' + country).classList.toggle('selected');
-  }
-
-  handleMapClick(target: SVGGraphicsElement) {
-    this.selectCountry(target.id);
   }
 
   visualizeTroops(countries: Country[]) {
