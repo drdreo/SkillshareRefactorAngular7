@@ -1,2 +1,12 @@
-# SkillshareRefactorAngular7
-The class project will be centered around the refactoring of Angular components to improve their maintainability and readability. It will be practised on a real-world example abstracted of one of my current web projects: a web board-game based on the ruleset of the popular game Risk. The specific parts that will be refactored are the map interaction handling and data exchange system.
+# Refactor an Angular 7 App: Improving Code Design
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.1.
+It's purpose is to demonstrate the refactoring of an Angular 7 app using design patterns.
+
+## Development server
+
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
