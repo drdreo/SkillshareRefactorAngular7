@@ -1,0 +1,19 @@
+%highlight {
+   stroke-width: 5;
+}
+
+.country {
+  cursor: pointer;
+}
+
+.country:hover{
+  @extend %highlight ;
+}
+
+.country.selected{
+  @extend %highlight ;
+}
+
+// #troops-helpers{
+//   pointer-events: none;
+// }

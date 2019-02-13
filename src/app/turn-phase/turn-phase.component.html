@@ -1,0 +1,20 @@
+<div class="phase-stepper">
+	<a [class.is-active]="isActive(TurnPhase.Recruit)" (click)="triggerPhase(TurnPhase.Recruit)">
+		<span class="phase__inner">
+				<span class="phase__title">Recruit</span>
+				<span class="phase__desc">Fortify your countries</span>
+		</span>
+  </a>
+  <a [class.is-active]="isActive(TurnPhase.Attack)" (click)="triggerPhase(TurnPhase.Attack)">
+			<span class="phase__inner">
+				<span class="phase__title">Attack</span>
+				<span class="phase__desc">Expand your empire</span>
+			</span>
+  </a>
+  <a [class.is-active]="isActive(TurnPhase.Maneuver)" (click)="triggerPhase(TurnPhase.Maneuver)">
+		<span class="phase__inner">
+			<span class="phase__title">Maneuver</span>
+			<span class="phase__desc">Relocate your army</span>
+		</span>
+  </a>
+</div>

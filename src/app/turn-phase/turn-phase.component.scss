@@ -1,0 +1,115 @@
+
+$base: 30px;
+$stepper-background-color: #ddd;
+$stepper-background-color--active: #262626;
+
+
+.phase-stepper {
+  display: flex;
+  border-radius: 6px;
+  overflow: hidden;
+
+  height: $base * 1.5;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 1), 0 4px 14px rgba(0, 0, 0, 0.7);
+  background-color: $stepper-background-color;
+
+  text-align: center;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+
+  cursor: pointer;
+
+  a {
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+    text-decoration: none;
+    margin: auto;
+    height: 100%;
+    padding-left: $base;
+    padding-right: 0;
+    color: #666;
+  }
+
+  a:first-child {
+    padding-left: $base / 2.5;
+  }
+
+  a:last-child {
+    padding-right: $base / 2.5;
+  }
+
+  a:after {
+    content: "";
+    position: absolute;
+    display: inline-block;
+    width: $base * 1.5;
+    height: $base * 1.5;
+    top: 0;
+    right: $base / 1.35 * -1;
+    background-color: #ddd;
+    border-top-right-radius: 5px;
+    transform: scale(0.707) rotate(45deg);
+    box-shadow: 1px -1px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+  }
+
+  a:last-child:after {
+    content: none;
+  }
+
+  a.is-active, a:hover {
+    background: $stepper-background-color--active;
+    color: white;
+  }
+
+  a.is-active:after, a:hover:after {
+    background: $stepper-background-color--active;
+    color: white;
+  }
+}
+
+.phase__inner {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  z-index: 2;
+}
+
+.phase__desc {
+  font-size: 12px;
+}
+
+.phase__title {
+  font-weight: bold;
+}
+
+// 1000px
+@media all and (max-width: 1000px) {
+  .phase-stepper {
+    font-size: 12px;
+  }
+}
+
+// 710px
+@media all and (max-width: 710px) {
+  .phase__desc {
+    display: none;
+  }
+
+  .phase-stepper {
+    height: $base;
+  }
+
+  .phase-stepper a {
+    padding-left: $base / 1.5;
+  }
+
+  .phase-stepper a:after {
+    content: "";
+    width: $base * 1;
+    height: $base * 1;
+    right: $base / 2 * -1;
+    transform: scale(0.707) rotate(45deg);
+  }
+}
