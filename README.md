@@ -1,0 +1,2 @@
+# SkillshareRefactorAngular7
+The class project will be centered around the refactoring of Angular components to improve their maintainability and readability. It will be practised on a real-world example abstracted of one of my current web projects: a web board-game based on the ruleset of the popular game Risk. The specific parts that will be refactored are the map interaction handling and data exchange system.
