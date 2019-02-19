@@ -1,8 +1,22 @@
 # Refactor an Angular 7 App: Improving Code Design
-This repo is the related project for the class available at: [Skillshare](shillshare.com)
+This repo is the related project for the class available at: [Skillshare_updateLink](shillshare.com)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.1.
 It's purpose is to demonstrate the refactoring of an Angular 7 app using design patterns.
+
+
+
+## Class Project
+### Getting Started
+You can either clone this repository and work locally in your prefered editor / IDE or dive right into it using the awesome [Stackblitz](https://stackblitz.com/github/drdreo/SkillshareRefactorAngular7) editor and fork the project. 
+If you run into any issues make sure you are using the latest version of Chrome since it's the most reliable browser for web development.
+
+### Submission
+I would love to see your project in the [gallery_updateLink](shillshare.com) and others would definitely appreciate a filled project gallery.
+The easiest way is to submit a link to your forked Stackblitz (don't forget to share the Editor, not the App URL) or your favorite online editor. You can also zip your folders (but exclude your node_modules) and upload them somewhere and share a link to it.
+
+### Review
+If you liked the class, have some criticism or suggestions please feel free to leave an honest review.
 
 ## Requirements
 - Node.js v10.15.1
