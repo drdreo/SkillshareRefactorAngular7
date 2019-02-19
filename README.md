@@ -10,6 +10,9 @@ It's purpose is to demonstrate the refactoring of an Angular 7 app using design 
 ### Getting Started
 You can either clone this repository and work locally in your prefered editor / IDE or dive right into it using the awesome [Stackblitz](https://stackblitz.com/github/drdreo/SkillshareRefactorAngular7) editor and fork the project. 
 If you run into any issues make sure you are using the latest version of Chrome since it's the most reliable browser for web development.
+
+I personally recommend developing locally, since i didn't configure Stackblitz to run the tests (honestly, i haven't done testing there yet).
+
 #### Local Setup
 ##### Requirements
 - Node.js v10.15.1
