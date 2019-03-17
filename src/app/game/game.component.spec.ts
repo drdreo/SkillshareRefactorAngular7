@@ -3,7 +3,6 @@ import {GameComponent} from './game.component';
 import {TurnPhaseComponent} from '../turn-phase/turn-phase.component';
 import {MapComponent} from '../map/map.component';
 import {TurnPhase} from '../turn-phase/turn-phase.enum';
-import {worldCountries} from './country';
 
 
 describe('GameComponent', () => {
@@ -58,7 +57,7 @@ describe('GameComponent', () => {
     describe('Attack', () => {
       it('should attack VENEZUELA from BRAZIL and win', () => {
         component.turnPhase = TurnPhase.Attack;
-        component.countries.find(cntry => cntry.name === 'Venezuela').troops = 2;
+        component.countries.find(country => country.name === 'Venezuela').troops = 2;
 
         // attacker more powerful, 3 vs 2, attacker wins
         component.onCountrySelected('Brazil');    // attacker
@@ -81,7 +80,7 @@ describe('GameComponent', () => {
 
       it('should NOT attack due to too less troops', () => {
         component.turnPhase = TurnPhase.Attack;
-        component.countries.find(cntry => cntry.name === 'Brazil').troops = 2;
+        component.countries.find(country => country.name === 'Brazil').troops = 2;
 
         // attacker has not enough troops, nothing should change
         component.onCountrySelected('Brazil');      // attacker
@@ -95,10 +94,10 @@ describe('GameComponent', () => {
     describe('Maneuver', () => {
       it('should maneuver 3 from BRAZIL to PERU', () => {
         component.turnPhase = TurnPhase.Maneuver;
-        component.countries.find(cntry => cntry.name === 'Brazil').troops = 5;
+        component.countries.find(country => country.name === 'Brazil').troops = 5;
 
-        component.onCountrySelected('Brazil');      // attacker
-        component.onCountrySelected('Peru'); // defender
+        component.onCountrySelected('Brazil');  // origin
+        component.onCountrySelected('Peru');    // target
 
         expect(component.getCountryByName('Brazil').troops).toEqual(2);
         expect(component.getCountryByName('Peru').troops).toEqual(6);
@@ -107,15 +106,14 @@ describe('GameComponent', () => {
       it('should NOT maneuver from BRAZIL to PERU', () => {
         component.turnPhase = TurnPhase.Maneuver;
 
-        // attacker has not enough troops, nothing should change
-        component.onCountrySelected('Brazil');      // attacker
-        component.onCountrySelected('Peru'); // defender
+        // origin has not enough troops for maneuvering, nothing should change
+        component.onCountrySelected('Brazil');  // origin
+        component.onCountrySelected('Peru');    // target
 
         expect(component.getCountryByName('Brazil').troops).toEqual(3);
         expect(component.getCountryByName('Peru').troops).toEqual(3);
       });
     });
-
 
   });
 });

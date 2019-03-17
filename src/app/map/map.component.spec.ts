@@ -11,14 +11,13 @@ describe('MapComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MapComponent]
-    }).compileComponents();
-  }));
+    }).compileComponents().then( () => {
+      fixture = TestBed.createComponent(MapComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(MapComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

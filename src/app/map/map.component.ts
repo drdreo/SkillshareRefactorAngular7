@@ -8,9 +8,8 @@ import {Country} from '../game/country';
 })
 export class MapComponent implements AfterViewInit, OnChanges {
 
-  @Output() selectedCountry = new EventEmitter<string>();
   @Input() countries: Country[];
-
+  @Output() selectedCountry = new EventEmitter<string>();
 
   constructor() {
   }
@@ -43,7 +42,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
 
   highlightCountry(country: string) {
     this.clearHighlights();
-    document.querySelector('#' + country).classList.toggle('selected');
+    document.querySelector('#' + country).classList.add('selected');
   }
 
   visualizeTroops(countries: Country[]) {
