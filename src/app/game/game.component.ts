@@ -1,31 +1,37 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 
 import {TurnPhase} from '../turn-phase/turn-phase.enum';
 import {Country, worldCountries} from './country';
+import {takeUntil} from 'rxjs/operators';
+import {GameService} from './game.service';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'ah-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
-export class GameComponent {
+export class GameComponent implements OnDestroy {
 
-  countries: Country[];
-  originCountryName: string;
 
-  turnPhase: TurnPhase;
+  private unsubscribe$ = new Subject(); // triggers the takeUntil operator
 
-  constructor() {
-    this.turnPhase = TurnPhase.Recruit;
-    this.countries = JSON.parse(JSON.stringify(worldCountries)); // create a real copy of the data, else it would mutate the original data
+
+  constructor(private gameService: GameService) {
+    this.gameService.selectedCountry$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(countryName => {
+        this.onCountrySelected(countryName);
+      });
   }
 
-  onTurnPhaseChange(turnPhase: TurnPhase) {
-    this.turnPhase = turnPhase;
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   onCountrySelected(countryName: string) {
-    switch (this.turnPhase) {
+    switch (this.gameService.turnPhase) {
       case TurnPhase.Recruit:
         this.handleTurnRecruit(countryName);
         break;
@@ -39,24 +45,24 @@ export class GameComponent {
   }
 
   private handleTurnRecruit(countryName: string) {
-    const country = this.getCountryByName(countryName);
+    const country = this.gameService.getCountryByName(countryName);
 
     // increase troops amount by 3
-    this.changeCountryTroops(country, country.troops + 3);
+    this.gameService.changeCountryTroops(country.name, country.troops + 3);
   }
 
   private handleTurnAttack(countryName: string) {
     // unset if clicked on the same country
-    if (this.originCountryName === countryName) {
-      this.resetCountrySelection();
+    if (this.gameService.originCountryName === countryName) {
+      this.gameService.resetCountrySelection();
     }
 
     // on the first country selection, set the origin country
-    if (!this.originCountryName) {
-      this.originCountryName = countryName;
+    if (!this.gameService.originCountryName) {
+      this.gameService.originCountryName = countryName;
     } else {
-      const attacker = this.getCountryByName(this.originCountryName);
-      const defender = this.getCountryByName(countryName);
+      const attacker = this.gameService.getCountryByName(this.gameService.originCountryName);
+      const defender = this.gameService.getCountryByName(countryName);
 
       // can the country attack?
       if (attacker.troops > 2) {
@@ -73,57 +79,43 @@ export class GameComponent {
           defenderChangedTroops = -1;
         }
 
-        this.changeCountryTroops(attacker, attacker.troops + attackerChangedTroops);
-        this.changeCountryTroops(defender, defender.troops + defenderChangedTroops);
+        this.gameService.changeCountryTroops(attacker.name, attacker.troops + attackerChangedTroops);
+        this.gameService.changeCountryTroops(defender.name, defender.troops + defenderChangedTroops);
 
       } else {
         console.warn('The attacker country has too less troops, so ain\'t possible to attack!');
       }
 
       // reset the selection after the turn is done
-      this.resetCountrySelection();
+      this.gameService.resetCountrySelection();
     }
   }
 
   private handleTurnManeuver(countryName: string) {
     // unset if clicked on the same country
-    if (this.originCountryName === countryName) {
-      this.resetCountrySelection();
+    if (this.gameService.originCountryName === countryName) {
+      this.gameService.resetCountrySelection();
     }
 
     // on the first country selection, set the origin country
-    if (!this.originCountryName) {
-      this.originCountryName = countryName;
+    if (!this.gameService.originCountryName) {
+      this.gameService.originCountryName = countryName;
     } else {
-      const origin = this.getCountryByName(this.originCountryName);
-      const target = this.getCountryByName(countryName);
+      const origin = this.gameService.getCountryByName(this.gameService.originCountryName);
+      const target = this.gameService.getCountryByName(countryName);
 
       if (origin.troops > 4) {
         // always maneuver 3, remove 3 from origin, add 3 to target
-        this.changeCountryTroops(origin, origin.troops - 3);
-        this.changeCountryTroops(target, target.troops + 3);
+        this.gameService.changeCountryTroops(origin.name, origin.troops - 3);
+        this.gameService.changeCountryTroops(target.name, target.troops + 3);
 
       } else {
         console.warn('The origin country has too less troops, it is not possible to maneuver!');
       }
 
       // reset the selection after the turn is done
-      this.resetCountrySelection();
+      this.gameService.resetCountrySelection();
     }
-  }
-
-  private changeCountryTroops(country: Country, troops: number) {
-    country.troops = troops;
-    this.countries = [...this.countries]; // trigger angular change detection through assigning a new array, due to no deep array comparison
-  }
-
-
-  getCountryByName(countryName: string): Country {
-    return this.countries.find(country => country.name === countryName);
-  }
-
-  resetCountrySelection() {
-    this.originCountryName = undefined;
   }
 
 

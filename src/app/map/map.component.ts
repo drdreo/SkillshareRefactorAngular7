@@ -1,25 +1,23 @@
 import {Component, AfterViewInit, OnChanges, Input, Output, EventEmitter, SimpleChanges} from '@angular/core';
 import {Country} from '../game/country';
+import {GameService} from '../game/game.service';
 
 @Component({
   selector: 'ah-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements AfterViewInit, OnChanges {
+export class MapComponent implements AfterViewInit {
 
-  @Input() countries: Country[];
-  @Output() selectedCountry = new EventEmitter<string>();
-
-  constructor() {
+  constructor(private gameService: GameService) {
   }
 
   ngAfterViewInit() {
     this.addEventListeners();
-  }
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.visualizeTroops(this.countries);
+    this.gameService.countries$.subscribe((countries) => {
+      this.visualizeTroops(countries);
+    });
   }
 
   addEventListeners() {
@@ -37,7 +35,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
 
   selectCountry(country: string) {
     this.highlightCountry(country);
-    this.selectedCountry.emit(country);
+    this.gameService.selectCountry(country);
   }
 
   highlightCountry(country: string) {

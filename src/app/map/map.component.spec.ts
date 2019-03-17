@@ -30,13 +30,17 @@ describe('MapComponent', () => {
     expect(text.innerHTML).toEqual('3');
   });
 
-  it('should send "Brazil" as selectedCountry event on clicking the country BRAZIL', () => {
-    const brazil = fixture.debugElement.query(By.css('#Brazil'));
+  it('should highlight BRAZIL', () => {
+    component.highlightCountry('Brazil');
+    const brazil = fixture.nativeElement.querySelector('#Brazil');
 
-    component.selectedCountry.subscribe((countryName: string) => {
-      expect(countryName).toEqual('Brazil');
-    });
+    expect(brazil.classList).toContain('selected');
+  });
 
-    brazil.triggerEventHandler('click', null);
+  it('should remove highlight of BRAZIL', () => {
+    component.clearHighlights();
+    const brazil = fixture.nativeElement.querySelector('#Brazil');
+
+    expect(brazil.classList).not.toContain('selected');
   });
 });

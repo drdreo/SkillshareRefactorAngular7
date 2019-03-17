@@ -2,11 +2,12 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TurnPhaseComponent} from './turn-phase.component';
 import {TurnPhase} from './turn-phase.enum';
-import {By} from '@angular/platform-browser';
+import {GameService} from '../game/game.service';
 
 describe('TurnPhaseComponent', () => {
   let component: TurnPhaseComponent;
   let fixture: ComponentFixture<TurnPhaseComponent>;
+  let gameService: GameService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -17,6 +18,8 @@ describe('TurnPhaseComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TurnPhaseComponent);
     component = fixture.componentInstance;
+    gameService = fixture.debugElement.injector.get(GameService);
+
     fixture.detectChanges();
   });
 
@@ -25,20 +28,21 @@ describe('TurnPhaseComponent', () => {
   });
 
   it('should set the attack phase active', () => {
-    component.phase = TurnPhase.Attack;
+    gameService.turnPhase = TurnPhase.Attack;
 
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('.is-active .phase__title').innerText).toEqual('Attack');
   });
 
-  it('should send TurnPhase.Recruit as phaseChange event on clicking recruit', () => {
-    const phaseBtn = fixture.debugElement.query(By.css('a'));
+  it('should update the TurnPhase to Maneuver', () => {
+    component.triggerPhase(TurnPhase.Maneuver);
 
-    component.phaseChange.subscribe((phase: TurnPhase) => {
-      expect(phase).toEqual(TurnPhase.Recruit);
-    });
+    expect(gameService.turnPhase).toEqual(TurnPhase.Maneuver);
+  });
 
-    phaseBtn.triggerEventHandler('click', null);
+  it('should check if TurnPhase is active', () => {
+    gameService.turnPhase = TurnPhase.Maneuver;
 
+    expect(component.isActive(TurnPhase.Maneuver)).toEqual(true);
   });
 });

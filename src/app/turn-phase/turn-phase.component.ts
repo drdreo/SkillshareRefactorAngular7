@@ -1,6 +1,7 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component} from '@angular/core';
 
 import {TurnPhase} from './turn-phase.enum';
+import {GameService} from '../game/game.service';
 
 @Component({
   selector: 'turn-phase',
@@ -9,20 +10,17 @@ import {TurnPhase} from './turn-phase.enum';
 })
 export class TurnPhaseComponent {
 
-  @Input() phase: TurnPhase;
-  @Output() phaseChange = new EventEmitter<TurnPhase>();
-
   TurnPhase = TurnPhase; // this makes the TurnPhase enum accessible within the template
 
-  constructor() {
+  constructor(private gameService: GameService) {
   }
 
   triggerPhase(turnPhase: TurnPhase) {
-    this.phaseChange.emit(turnPhase);
+    this.gameService.turnPhase = turnPhase;
   }
 
   isActive(phase: TurnPhase) {
     // console.log("isActive called");
-    return this.phase === phase;
+    return this.gameService.turnPhase === phase;
   }
 }
