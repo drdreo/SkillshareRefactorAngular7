@@ -1,5 +1,5 @@
 # Refactor an Angular 7 App: Improving Code Design
-This repo is the related project for the class available at: [Skillshare_updateLink](shillshare.com)
+This repo is the related project for the class available at: [Skillshare](https://www.skillshare.com/classes/Refactor-an-Angular-7-App-Improving-Code-Design/1304835786)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.1.
 It's purpose is to demonstrate the refactoring of an Angular 7 app using design patterns.
@@ -28,7 +28,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 
 ### Submission
-I would love to see your project in the [gallery_updateLink](shillshare.com) and others would definitely appreciate a filled project gallery.
+I would love to see your project in the [gallery](https://www.skillshare.com/classes/Refactor-an-Angular-7-App-Improving-Code-Design/1304835786/project-guide) and others would definitely appreciate a filled project gallery.
 The easiest way is to submit a link to your forked Stackblitz (don't forget to share the Editor, not the App URL) or your favorite online editor. You can also zip your folders (but exclude your node_modules) and upload them somewhere and share a link to it.
 
 ### Review
